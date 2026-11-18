@@ -27,7 +27,16 @@ Wi-Fi 默认关闭（OpenWrt 惯例）。进入后台 → 网络 → 无线 → 
 
 ### 配置代理
 
-两条路线，二选一：
+两套运行时并存，状态与用法一览：
+
+| 运行时 | 状态 | 面板源码 | 切换命令 |
+|---|---|---|---|
+| **OpenClash（mihomo）** | ✅ **当前使用**（2026-11 起） | `skill/scripts/pwnodes.uc` | `runtime-switch.sh openclash` |
+| PassWall（固件内置） | 备选，保留可随时切回 | `skill/scripts/pwnodes-passwall.sh` | `runtime-switch.sh passwall` |
+
+> 面板安装：把对应源码拷成 `/www/cgi-bin/pwnodes` 并 `chmod 755`；切换运行时时记得同步换面板。
+
+具体说明：
 
 **A. OpenClash（mihomo，当前方案）**
 

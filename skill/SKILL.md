@@ -61,7 +61,7 @@ description: 为 Cudy TR3600 v1 刷入/编译/配置 OpenWrt 25.12 的完整流�
 5. 启动前确认 geosite.dat/geoip.dat 存在（本固件已预置在 /usr/share/v2ray/）；sing-box 分流还需要 Geoview。
 6. 路由器时区设为 `Asia/Shanghai`；自动切换用 cron + uci，切换后测 Google，失败自动回退（见 `scripts/pw-mode.sh`）。
 
-### OpenClash（apk 固件，当前方案）
+### OpenClash（apk 固件，当前使用） / PassWall（备选，保留）
 
 PassWall 的 sing-box 不暴露“当前节点”，延迟也只能测 TCP 握手。要用真实延迟和即时切换，装 OpenClash（mihomo）：
 

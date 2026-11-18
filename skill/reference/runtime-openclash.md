@@ -1,6 +1,14 @@
 # OpenClash（mihomo）运行时
 
-本固件是 **apk** 包管理（25.12-SNAPSHOT），防火墙为 firewall4。代理层可以从 PassWall 切到 OpenClash（内核 mihomo），切换后手机端用自建面板管理。
+本固件是 **apk** 包管理（25.12-SNAPSHOT），防火墙为 firewall4。
+
+> **当前运行时：OpenClash（mihomo）**，2026-11 起启用。
+> PassWall 保留在机器上（已停用、关自启），随时可切回；两套面板分别对应，见下表。
+
+| 运行时 | 状态 | 面板 | 切换 |
+|---|---|---|---|
+| OpenClash | ✅ 当前使用 | `pwnodes.uc` | `runtime-switch.sh openclash` |
+| PassWall | 备选（未启用） | `pwnodes-passwall.sh` | `runtime-switch.sh passwall` |
 
 ## 为什么切
 
