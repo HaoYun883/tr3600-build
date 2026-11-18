@@ -32,7 +32,7 @@ Wi-Fi 默认关闭（OpenWrt 惯例）。进入后台 → 网络 → 无线 → 
 | 运行时 | 状态 | 面板源码 | 切换命令 |
 |---|---|---|---|
 | **OpenClash（mihomo）** | ✅ **当前使用**（2026-11 起） | `skill/scripts/pwnodes.uc` | `runtime-switch.sh openclash` |
-| PassWall（固件内置） | 备选，保留可随时切回 | `skill/scripts/pwnodes-passwall.sh` | `runtime-switch.sh passwall` |
+| PassWall（固件内置） | **本机已卸载**（包源已失效，无法在线重装；新刷固件仍自带） | `skill/scripts/pwnodes-passwall.sh` | `runtime-switch.sh passwall`（需先装回） |
 
 > 面板安装：把对应源码拷成 `/www/cgi-bin/pwnodes` 并 `chmod 755`；切换运行时时记得同步换面板。
 

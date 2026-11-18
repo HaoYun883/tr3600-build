@@ -73,7 +73,7 @@ PassWall 的 sing-box 不暴露“当前节点”，延迟也只能测 TCP 握�
 
 完整步骤与坑：`reference/runtime-openclash.md`。
 
-两套运行时并存：`scripts/runtime-switch.sh openclash|passwall` 切换（失败自动回滚）；面板也有两版，`scripts/pwnodes.uc` 给 OpenClash、`scripts/pwnodes-passwall.sh` 给 PassWall，按当前运行时拷到 `/www/cgi-bin/pwnodes`。
+两套运行时并存：`scripts/runtime-switch.sh openclash|passwall` 切换（失败自动回滚）；面板也有两版，`scripts/pwnodes.uc` 给 OpenClash、`scripts/pwnodes-passwall.sh` 给 PassWall，按当前运行时拷到 `/www/cgi-bin/pwnodes`。**本机已卸载 PassWall**（源已失效，装不回来），新刷固件仍自带。
 
 ## 故障排查决策树
 

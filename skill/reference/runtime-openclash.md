@@ -3,12 +3,13 @@
 本固件是 **apk** 包管理（25.12-SNAPSHOT），防火墙为 firewall4。
 
 > **当前运行时：OpenClash（mihomo）**，2026-11 起启用。
-> PassWall 保留在机器上（已停用、关自启），随时可切回；两套面板分别对应，见下表。
+> 本机已卸载 PassWall（原因见下），卸载前配置备份在 `/root/passwall-backup-<时间戳>/`。
+> 新刷固件仍自带 PassWall，面板源码保留在本仓库，供那类机器使用。
 
 | 运行时 | 状态 | 面板 | 切换 |
 |---|---|---|---|
 | OpenClash | ✅ 当前使用 | `pwnodes.uc` | `runtime-switch.sh openclash` |
-| PassWall | 备选（未启用） | `pwnodes-passwall.sh` | `runtime-switch.sh passwall` |
+| PassWall | 本机已卸载；新固件自带 | `pwnodes-passwall.sh` | `runtime-switch.sh passwall`（需先装回） |
 
 ## 为什么切
 
@@ -104,6 +105,14 @@ PassWall 版的局限（也是切到 OpenClash 的原因）：拿不到内核当
 ```
 
 流程：备份 → 经代理下载 → `mihomo -t` 校验 → 替换 → 重启 → 测出口 IP；失败自动回滚。
+
+## 卸载 PassWall（2026-11）
+
+本机的 PassWall 已卸载，释放了约 24 MB overlay。注意：
+
+- `sing-box`/`xray-core` 在只读 squashfs 里，删除只写入 whiteout，**实际释放小于二进制体积**（54+28 MB 不会全额回到可用空间）。
+- 固件配置的 passwall 源（`.../packages/aarch64_cortex-a53/passwall/packages.adb`）在快照里已不存在，`apk search luci-app-passwall` 为空 —— 卸了无法在线装回，只能刷固件或离线包。
+- 卸载后要清掉 `/etc/config/firewall` 里指向 `/var/etc/passwall.include` 的 include，否则 fw4 启动报错。
 
 ## 切回 PassWall
 
