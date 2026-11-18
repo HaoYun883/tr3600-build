@@ -65,6 +65,30 @@ sed -i 's/^external-controller: .*/external-controller: 192.168.2.1:9090/' \
 - 实测：58 节点一轮「测全部」约 3 秒；节点切换即时生效
 - 延迟胶囊：≤0 显示「超时」，<200ms 绿、<500ms 黄、其余红
 
+
+## 两套运行时并存
+
+PassWall 与 OpenClash 可以同时装着，只启其中一个：
+
+```sh
+scripts/runtime-switch.sh openclash    # 停 PassWall、启 OpenClash，验证出口，失败回滚
+scripts/runtime-switch.sh passwall     # 反向切换
+```
+
+面板也有两版，按当前运行时选一个装到 `/www/cgi-bin/pwnodes`：
+
+| 运行时 | 面板源码 | 数据来源 |
+|---|---|---|
+| OpenClash | `scripts/pwnodes.uc`（ucode） | Clash API `/proxies`、`/group/{g}/delay`、`PUT /proxies/{g}` |
+| PassWall | `scripts/pwnodes-passwall.sh`（shell） | PassWall 的 uci 与 sing-box；“当前节点”靠 netstat 推断，延迟为入口 TCP 握手 |
+
+```sh
+cp scripts/pwnodes.uc /www/cgi-bin/pwnodes && chmod 755 /www/cgi-bin/pwnodes          # OpenClash
+cp scripts/pwnodes-passwall.sh /www/cgi-bin/pwnodes && chmod 755 /www/cgi-bin/pwnodes # PassWall
+```
+
+PassWall 版的局限（也是切到 OpenClash 的原因）：拿不到内核当前选中的节点，延迟数字只是端口握手，看着 2ms 实际可能只有 3~4 Mbps。
+
 ## 换订阅
 
 ```sh
