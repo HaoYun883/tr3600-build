@@ -61,6 +61,18 @@ description: 为 Cudy TR3600 v1 刷入/编译/配置 OpenWrt 25.12 的完整流�
 5. 启动前确认 geosite.dat/geoip.dat 存在（本固件已预置在 /usr/share/v2ray/）；sing-box 分流还需要 Geoview。
 6. 路由器时区设为 `Asia/Shanghai`；自动切换用 cron + uci，切换后测 Google，失败自动回退（见 `scripts/pw-mode.sh`）。
 
+### OpenClash（apk 固件，当前方案）
+
+PassWall 的 sing-box 不暴露“当前节点”，延迟也只能测 TCP 握手。要用真实延迟和即时切换，装 OpenClash（mihomo）：
+
+1. `apk add` 依赖后安装官方 `*.apk`；国内拉不动包文件时用 SJTU 镜像同路径补
+2. 订阅经代理下载后 `mihomo -t` 校验，`uci set openclash.config.config_path` 指向它
+3. `external-controller` 从 `0.0.0.0:9090` 改为 `192.168.2.1:9090`（补丁点在 `yml_change.sh`，升级会覆盖）
+4. 手机面板 `/www/cgi-bin/pwnodes`（ucode CGI）读 `/proxies`、`/group/{g}/delay`，切换用 `PUT /proxies/{g}`
+5. 换订阅：`scripts/pw-sub-swap.sh '<URL>'`，校验失败自动回滚
+
+完整步骤与坑：`reference/runtime-openclash.md`。
+
 ## 故障排查决策树
 
 - **网口突然死亡/100%丢包** → RTL8221B EEE bug（本固件已修复）。参见 reference/pitfalls.md

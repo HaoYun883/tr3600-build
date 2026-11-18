@@ -27,7 +27,15 @@ Wi-Fi 默认关闭（OpenWrt 惯例）。进入后台 → 网络 → 无线 → 
 
 ### 配置代理
 
-服务 → PassWall → 订阅管理 → 添加你的订阅链接 → 更新订阅 → 在主节点中选择节点即可。新版 PassWall 主节点字段为 `node`（不再使用老教程中的 `tcp_node`）。
+两条路线，二选一：
+
+**A. OpenClash（mihomo，当前方案）**
+
+固件是 apk 包管理，OpenClash 提供 apk 安装包；装好后手机端可用自建面板（`/cgi-bin/pwnodes`）看当前节点、测真实延迟、即时切换。安装步骤、API 限制、订阅落地与踩坑见 [`skill/reference/runtime-openclash.md`](skill/reference/runtime-openclash.md)。
+
+**B. PassWall（固件内置）**
+
+服务 → PassWall → 订阅管理 → 添加订阅链接 → 更新订阅 → 在主节点中选择节点。新版 PassWall 主节点字段为 `node`（不是老教程的 `tcp_node`）。注意：PassWall 的 sing-box 不暴露当前选中节点，面板上的“延迟”只能测到入口 TCP 握手，不代表实际速度。
 
 ## 实测数据（TR3600 v1 真机验证）
 
